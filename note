@@ -1,0 +1,4 @@
+加入 web 依赖后，启动服务，没有以web方式启动，解决方案：
+1、点击项目 - >run as - > Maven build ...
+2、在Goals 中输入  dependency:purge-local-repository（清理本地仓库）
+3、然后再启动就可以了  
