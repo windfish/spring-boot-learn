@@ -1,4 +1,21 @@
 加入 web 依赖后，启动服务，没有以web方式启动，解决方案：
 1、点击项目 - >run as - > Maven build ...
 2、在Goals 中输入  dependency:purge-local-repository（清理本地仓库）
-3、然后再启动就可以了  
+3、然后再启动就可以了
+
+properties 文件中文乱码：
+1、设置 properties 文件编码为 utf-8，并重新创建 properties 文件
+2、eclipse 安装  PropertiesEditor，进行编辑
+
+
+@RestController spring4 加入的注解，用来返回String 类型的数据
+@Controller 需要和@ResponseBody 来配合返回String 类型的数据
+
+
+SpringBoot 默认提供静态资源的目录位置需要位于classpath 下，目录符合如下规则：
+/static
+/public
+/resources
+/META-INF/resources
+
+thymeleaf 页面渲染的页面模板配置路径为 src/main/resources/templates
