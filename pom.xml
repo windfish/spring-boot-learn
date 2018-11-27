@@ -78,10 +78,26 @@
 		</dependency>
 		<!-- lombok end -->
 		
+		<!-- jackon xml begin -->
 		<dependency>
-		    <groupId>com.fasterxml.jackson.datatype</groupId>
-		    <artifactId>jackson-datatype-jsr310</artifactId>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
+		<!-- jackon xml end -->
+		
+		<!-- jdbc begin -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<!-- jdbc end -->
+		
+		<!-- mysql begin -->
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- mysql end -->
 		
 	</dependencies>
 

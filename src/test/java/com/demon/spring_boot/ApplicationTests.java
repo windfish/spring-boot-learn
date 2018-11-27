@@ -103,7 +103,10 @@ public class ApplicationTests {
 	public void testLocalDate() throws Exception{
 	    RequestBuilder request = MockMvcRequestBuilders.post("/localdto")
 	                    .param("userName", "test")
-	                    .param("birthday", "2011-05-06");
+	                    .param("birthday", "2011-05-06")
+	                    .header("Content-Type", "application/json")
+//	                    .content("{\"userName\":\"test\", \"birthday\":\"2011-05-06\"}")
+	                    ;
 	    MvcResult result = mvc.perform(request).andReturn();
 	    logger.info(result.getResponse().getContentAsString());
 	}

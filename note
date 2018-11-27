@@ -1,3 +1,15 @@
+@RestController spring4 加入的注解，用来返回String 类型的数据
+@Controller 需要和@ResponseBody 来配合返回String 类型的数据
+
+@RequestBody 用于接收json串，如ajax请求的data参数， 可在直接接收转换到Pojo
+@ModelAttribute 用于直接接受url?后面的参数，如url?id=123&name=456，可在直接接收转换到Pojo
+当前台界面使用GET或POST方式提交数据时，数据编码格式由请求头的ContentType指定。分为以下几种情况：
+1. application/x-www-form-urlencoded，这种情况的数据@RequestParam、@ModelAttribute可以处理，@RequestBody也可以处理。
+2. multipart/form-data，@RequestBody不能处理这种格式的数据。（form表单里面有文件上传时，必须要指定enctype属性值为multipart/form-data，意思是以二进制流的形式传输文件。）
+3. application/json、application/xml等格式的数据，必须使用@RequestBody来处理。
+
+
+
 加入 web 依赖后，启动服务，没有以web方式启动，解决方案：
 1、点击项目 - >run as - > Maven build ...
 2、在Goals 中输入  dependency:purge-local-repository（清理本地仓库）
@@ -8,10 +20,6 @@ properties 文件中文乱码：
 2、eclipse 安装  PropertiesEditor，进行编辑
 
 
-@RestController spring4 加入的注解，用来返回String 类型的数据
-@Controller 需要和@ResponseBody 来配合返回String 类型的数据
-
-
 SpringBoot 默认提供静态资源的目录位置需要位于classpath 下，目录符合如下规则：
 /static
 /public
@@ -19,3 +27,16 @@ SpringBoot 默认提供静态资源的目录位置需要位于classpath 下，�
 /META-INF/resources
 
 thymeleaf 页面渲染的页面模板配置路径为 src/main/resources/templates
+
+
+eclipse 安装 lombok 插件：
+1、https://projectlombok.org/download.html 下载 lombok.jar
+2、将lombok.jar 放到一个固定目录，然后执行 java -jar lombok.jar
+3、在弹出框中，点击specify location 按钮，选择eclipse 安装目录，然后点击install 即可
+4、验证安装是否成功：eclipse.ini 中会有 -javaagent:lombok.jar
+5、重启eclipse
+
+
+
+
+

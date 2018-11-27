@@ -27,14 +27,14 @@ public class GlobalExceptionHandler {
 
     public static final String DEFAULT_ERROR_VIEW = "error";
     
-    /*@ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e){
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", e);
         mav.addObject("url", req.getRequestURL());
         mav.setViewName(DEFAULT_ERROR_VIEW);
         return mav;
-    }*/
+    }
     
     /**
      * BaseException 异常时，返回json 格式的异常

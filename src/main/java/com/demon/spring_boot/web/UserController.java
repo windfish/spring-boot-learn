@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demon.spring_boot.entity.User;
+import com.demon.spring_boot.entity.UserXml;
 
 //import io.swagger.annotations.ApiImplicitParam;
 //import io.swagger.annotations.ApiImplicitParams;
@@ -81,6 +85,13 @@ public class UserController {
          */
         users.remove(id);
         return "success";
+    }
+    
+    @PostMapping(value="/userXml", consumes=MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
+    public UserXml create(@RequestBody UserXml user){
+        user.setName("learnSpringBoot: "+user.getName());
+        user.setAge(user.getAge() + 10);
+        return user;
     }
     
 }
