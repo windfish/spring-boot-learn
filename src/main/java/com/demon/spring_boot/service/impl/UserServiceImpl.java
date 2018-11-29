@@ -20,17 +20,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeById(Long id) {
-        
+        jdbcTemplate.update("delete from user where id=?", id);
     }
 
     @Override
     public Integer countUser() {
-        return null;
+        return jdbcTemplate.queryForObject("select count(*) from user", Integer.class);
     }
 
     @Override
     public void removeAllUser() {
-        
+        jdbcTemplate.update("delete from user");
     }
 
 }

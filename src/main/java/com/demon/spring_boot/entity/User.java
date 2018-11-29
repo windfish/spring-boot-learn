@@ -13,6 +13,16 @@ public class User {
     @ApiModelProperty("用户年龄")
     private Integer age;
     
+    public User() {
+    }
+    
+    public User(Long id, String name, Integer age) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+    
     public Long getId() {
         return id;
     }
