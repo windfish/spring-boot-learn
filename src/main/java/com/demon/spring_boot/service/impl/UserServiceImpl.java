@@ -8,6 +8,13 @@ import org.springframework.stereotype.Service;
 import com.demon.spring_boot.entity.User;
 import com.demon.spring_boot.service.UserService;
 
+/**
+ * jdbcTemplate 访问mysql
+ * 
+ * @author xuliang
+ * @since 2018年12月7日 上午11:02:35
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
