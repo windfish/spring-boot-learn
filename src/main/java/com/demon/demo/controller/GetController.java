@@ -1,6 +1,8 @@
 package com.demon.demo.controller;
 
+import com.demon.demo.settings.ServerSettings;
 import com.demon.demo.vo.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,6 +89,14 @@ public class GetController {
         String id = request.getParameter("id");
         params.put("id", id);
         return params;
+    }
+
+    @Autowired
+    private ServerSettings serverSettings;
+
+    @GetMapping("/v1/test_prop")
+    public Object testServerSettings(){
+        return serverSettings;
     }
 
 }

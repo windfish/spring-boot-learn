@@ -1,5 +1,7 @@
 package com.demon.demo.controller;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,7 @@ import java.util.UUID;
  * since: 2020/4/20 15:39
  **/
 @Controller
+@PropertySource("classpath:application.properties")
 public class FileController {
 
     /**
@@ -26,7 +29,8 @@ public class FileController {
         return "index";
     }
 
-    private final String filePath = "d:\\data\\springboot\\";
+    @Value("${upload.file.path}")
+    private String filePath;
 
     @RequestMapping("upload")
     @ResponseBody
@@ -40,9 +44,9 @@ public class FileController {
         String suffixName = filename.substring(filename.lastIndexOf("."));
         System.out.println("文件的后缀名：" + suffixName);
 
-        filename = UUID.randomUUID() + suffixName;
-        System.out.println("文件上传后路径：" + filePath + filename);
-        File dest = new File(filePath + filename);
+        filename = filePath + UUID.randomUUID() + suffixName;
+        System.out.println("文件上传后路径：" + filename);
+        File dest = new File(filename);
 
         try {
             file.transferTo(dest);

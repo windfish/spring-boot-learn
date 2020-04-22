@@ -1,3 +1,5 @@
+### SpringBoot 官方文档 https://docs.spring.io/spring-boot/docs/
+
 ### SpringBoot http 协议开发
 
 ##### 配置
@@ -69,6 +71,102 @@ SpringBoot 默认会按照以下顺序查找相应的路径，META/resources > r
 spring.servlet.multipart.max-file-size=3MB
 # 总文件大小
 spring.servlet.multipart.max-request-size=20MB
+```
+
+[web-properties 官方文档](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#web-properties)
+
+
+### 热部署 Dev-tool
+
+[Dev-tools 官方文档](https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/htmlsingle/#using-boot-devtools)
+
+```
+引入依赖，该依赖会在开发时生效，打包后的环境会自动禁用
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <optional>true</optional>
+</dependency>
+
+IDEA 需要设置运行时自动编译程序，才可生效
+
+指定文件不触发热部署 spring.devtools.restart.exclude=static/**,public/**
+
+手工触发热部署 spring.devtools.restart.trigger-file=devtools-trigger.txt
+修改了该文件，才会触发热部署；而修改了代码不会
+```
+
+### 配置文件
+
+[SpringBoot 默认的配置文件](https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/htmlsingle/#common-application-properties)
+
+##### 配置文件自动映射
+
+* 加载配置文件到Controller 的属性
+
+> Controller 上配置资源文件 @PropertySource("classpath:application.properties")
+
+> 在属性上配置映射的资源文件key
+```
+@Value("${upload.file.path}")
+private String filePath;
+```
+
+* 加载配置文件到配置类中
+
+> 配置类添加相应注解
+```
+@Component
+@PropertySource("classpath:application.properties")
+@ConfigurationProperties
+public class ServerSettings {...}
+```
+> 配置类对应的属性上添加注解
+```
+@Value("${test.name}")
+private String name;
+@Value("${test.domain}")
+private String domain;
+```
+> 使用配置类时，需IOC 对象注入才能使用
+```
+@Autowired
+private ServerSettings serverSettings;
+```
+> 若属性名称和配置文件中的名称一致（完全一致或去除前缀后一致），则可通过名称直接注入属性值，不需要@Value 注解
+```
+# 去除前缀后一致的，通过@ConfigurationProperties 指定前缀
+@ConfigurationProperties(prefix = "test.prop")
+```
+
+
+### 单元测试
+
+> 引入依赖 spring-boot-starter-test
+
+> 测试类使用以下注解
+```
+@RunWith(SpringRunner.class)    // 底层用JUnit  继承 SpringJUnit4ClassRunner
+@SpringBootTest(classes = {Application.class})
+```
+
+> 单元测试方法使用@Test 注解
+
+> @Before 单元测试之前执行  @After 单元测试之后执行
+
+> 使用MockMvc
+```
+# 测试类增加配置注解
+@AutoConfigureMockMvc
+
+# 使用MockMvc 进行mvc 请求的测试
+MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+System.out.println(mvcResult.getResponse().getContentAsString());
+
+# perform 使用MockMvcRequestBuilders 构造一个mock 请求
+# andExpect 校验MockMvcResultMatchers 的验证规则结果
+# andReturn 返回MvcResult
 ```
 
 

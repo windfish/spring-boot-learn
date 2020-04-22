@@ -20,7 +20,7 @@ public class SampleController {
     @RequestMapping("/")
     @ResponseBody
     String home(){
-        return "Hello, SpringBoot";
+        return "Hello, SpringBoot. Dev-tools 热加载，单独文件控制";
     }
 
     @RequestMapping("/test_map")
