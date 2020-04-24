@@ -169,4 +169,51 @@ System.out.println(mvcResult.getResponse().getContentAsString());
 # andReturn 返回MvcResult
 ```
 
+### 全局异常处理
+
+[全局异常处理类](https://github.com/windfish/spring-boot-learn/blob/master/src/main/java/com/demon/spring_boot/exception/BaseException.java)
+> @ControllerAdvice 定义全局异常处理类
+> @ExceptionHandler 定义函数针对的异常类型
+> 默认的异常处理返回的ModelAndView，需要结合页面解析器反馈到页面上，比如，thymeleaf
+> 也可以增加@ResponseBody 直接返回字符串到页面上
+
+### SpringBoot war 包方式启动
+
+> 在pom.xml 中将打包形式改为 <packaging>war</packaging>，并添加项目名称<finalName>springboot-learn</finalName>
+> 修改启动类，使其继承SpringBootServletInitializer，并实现对应方法
+```
+public class Application extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(Application.class);
+	}
+
+    public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+```
+
+### SpringBoot 过滤器Filter
+
+> 默认加载的Filter
+```
+characterEncodingFilter
+hiddenHttpMethodFilter
+formContentFilter
+requestContextFilter
+```
+
+
+
+
+
+
+
+
+
+
+
 
