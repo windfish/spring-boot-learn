@@ -177,6 +177,7 @@ System.out.println(mvcResult.getResponse().getContentAsString());
 > 默认的异常处理返回的ModelAndView，需要结合页面解析器反馈到页面上，比如，thymeleaf
 > 也可以增加@ResponseBody 直接返回字符串到页面上
 
+
 ### SpringBoot war 包方式启动
 
 > 在pom.xml 中将打包形式改为 <packaging>war</packaging>，并添加项目名称<finalName>springboot-learn</finalName>
@@ -206,8 +207,55 @@ formContentFilter
 requestContextFilter
 ```
 
+> filter 的优先级
+
+1. Ordered.HIGHEST_PRECEDENCE
+2. Ordered.LOWEST_PRECEDENCE
+3. 值越大，优先级越多；自定义的Filter，避免和默认的Filter 优先级一样，不然会冲突
+
+> 自定义Filter
+
+1. 使用Servlet 3.0 的注解进行配置
+2. 启动类里增加 @ServletComponentScan(value = {"com.demon.demo.filter"})，扫描对应的包
+3. 新建一个Filter 类，实现接口 javax.servlet.Filter，并实现对应的方法
+4. Filter 中调用filterChain.doFilter 方法来控制是否运行请求通过
+5. @WebFilter(urlPatterns = "/test_filter/*", filterName = "myTestFilter") 注解，指定该类为Filter，并定义需要拦截的url
+6. filter 的抛出异常，@ControllerAdvice + @ExceptionHandler 的全局异常捕获不到
 
 
+###### Servlet 3.0 自定义原生Servlet
+
+1. 定义一个类，继承 HttpServlet
+2. 类上增加注解 @WebServlet(name = "userServlet", urlPatterns = "/api/v1/test/servlet")
+3. 实现 doGet 和 doPost 方法
+4. 启动类增加 @ServletComponentScan(value = {"com.demon.demo.servlet"})，扫描对应的包
+
+###### 使用Servlet 3.0 注解自定义原生Listener 监听器
+
+> 常用的监听器
+```
+servletContextListener 应用上下文启动和关闭时就会调用，主要做资源初始化和销毁
+httpSessionListener HttpSession 创建和销毁时会调用
+servletRequestListener ServletRequest 创建和销毁时会调用，主要做统计
+```
+
+> 定义一个类，继承对应的listener，使用@WebListener 注解，启动类增加@ServletComponentScan
+
+### SpringBoot 自定义拦截器
+
+> 自定义拦截器类实现HandlerInterceptor 接口，并实现其对应的方法
+```
+preHandle 进入Controller 之前执行
+postHandle 调用完Controller 之后，视图渲染之前执行；若Controller 出现了异常，则不会执行该方法
+afterCompletion 整个请求完成之后执行，不管有没有异常，通常用于资源清理
+```
+> 使用@Configuration 注解定义拦截器的配置类，需继承WebMvcConfigurer，实现addInterceptors 方法注册相应的拦截器，多个拦截器按照注册的顺序依次拦截
+
+> Filter 和 Interceptor 有什么区别
+
+1. Filter 是基于函数回调doFilter()，Interceptor 是基于AOP 思想
+2. Filter 只在Servlet 前后起作用，Interceptor 可以深入到方法前后、异常抛出前后等起作用
+3. Filter 和 Interceptor 的执行顺序是：过滤前 --> 拦截前 --> controller --> 拦截后 --> 过滤后
 
 
 

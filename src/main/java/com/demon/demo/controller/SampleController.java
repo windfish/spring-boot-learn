@@ -36,4 +36,21 @@ public class SampleController {
         return new User(23, "123123123", "1385454454", new Date());
     }
 
+    @RequestMapping("/test_filter")
+    public User testFilter(){
+        return new User(32, "dwerdgfd12333", "1385454454", new Date());
+    }
+
+    @RequestMapping("/test/listener")
+    public String testRequestListener(){
+        System.out.println("testRequestListener controller");
+        return "test request listener";
+    }
+
+    @RequestMapping("/test/interceptor/xxx")
+    public String testInterceptor(){
+        System.out.println("controller --> testInterceptor");
+        return "testInterceptor";
+    }
+
 }
