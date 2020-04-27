@@ -258,6 +258,32 @@ afterCompletion 整个请求完成之后执行，不管有没有异常，通常�
 3. Filter 和 Interceptor 的执行顺序是：过滤前 --> 拦截前 --> controller --> 拦截后 --> 过滤后
 
 
+### SpringBoot 整合freemarker
+
+[freemarker 配置参数](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#templating-properties)
+
+
+### 整合MyBatis
+
+> 引入依赖，mybatis-spring-boot-starter、mysql-connector-java、druid
+
+> 加入配置信息
+```
+spring.datasource.url=jdbc:mysql://test.db:3306/test?useUnicode\=true&characterEncoding\=utf8
+spring.datasource.username=test
+spring.datasource.password=test
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+# 使用的数据源，默认数据源（com.zaxxer.hikari.HikariDataSource）
+#spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
+# 打印sql 语句
+mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
+```
+
+> 启动类增加mapper 扫描，@MapperScan("com.demon.demo.mapper");
+
+> 开发对应的mapper、service、controller
+
+
 
 
 
