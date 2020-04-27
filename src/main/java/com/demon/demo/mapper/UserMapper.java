@@ -21,6 +21,9 @@ public interface UserMapper {
     List<User> getAll();
 
     @Select("select * from user where id=#{id}")
+    @Results({
+            @Result(column = "create_time", property = "createTime")
+    })
     User findById(int id);
 
 }
