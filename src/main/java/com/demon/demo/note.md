@@ -223,14 +223,14 @@ requestContextFilter
 6. filter 的抛出异常，@ControllerAdvice + @ExceptionHandler 的全局异常捕获不到
 
 
-###### Servlet 3.0 自定义原生Servlet
+##### Servlet 3.0 自定义原生Servlet
 
 1. 定义一个类，继承 HttpServlet
 2. 类上增加注解 @WebServlet(name = "userServlet", urlPatterns = "/api/v1/test/servlet")
 3. 实现 doGet 和 doPost 方法
 4. 启动类增加 @ServletComponentScan(value = {"com.demon.demo.servlet"})，扫描对应的包
 
-###### 使用Servlet 3.0 注解自定义原生Listener 监听器
+##### 使用Servlet 3.0 注解自定义原生Listener 监听器
 
 > 常用的监听器
 ```
@@ -283,7 +283,36 @@ mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
 
 > 开发对应的mapper、service、controller
 
+> 事务控制，在service 的方法上增加注解@Transactional(propagation = Propagation.REQUIRED)
 
+
+### 整合Redis
+
+> 引入依赖，spring-boot-starter-data-redis
+
+> 加入配置信息
+```
+# Redis数据库索引（默认为0）
+spring.redis.database=0
+# Redis服务器地址
+spring.redis.host=test.redis.uuuwin.com
+# Redis服务器连接端口
+spring.redis.port=7480
+# Redis服务器连接密码（默认为空）
+spring.redis.password=s7480.uw.redis
+# 连接池最大连接数（使用负值表示没有限制）
+spring.redis.pool.max-active=16
+# 连接池最大阻塞等待时间（使用负值表示没有限制）
+spring.redis.pool.max-wait=30000
+# 连接池中的最大空闲连接
+spring.redis.pool.max-idle=16
+# 连接池中的最小空闲连接
+spring.redis.pool.min-idle=4
+# 连接超时时间（毫秒）
+spring.redis.timeout=60000
+```
+
+> 类中注入RedisTemplate 对象并使用，例如，StringRedisTemplate
 
 
 

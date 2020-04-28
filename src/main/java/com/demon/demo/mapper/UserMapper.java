@@ -26,4 +26,10 @@ public interface UserMapper {
     })
     User findById(int id);
 
+    @Update("update user set name=#{name} where id=#{id}")
+    void update(User user);
+
+    @Delete("delete from user where id=#{userId}")
+    void delete(Long userId);
+
 }

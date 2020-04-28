@@ -5,7 +5,10 @@ import com.demon.demo.mapper.UserMapper;
 import com.demon.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +34,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(int id) {
         return userMapper.findById(id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public int addAccount() {
+        User user = new User();
+        user.setName("测试事务");
+        user.setPhone("1231231231");
+        user.setAge(58);
+        user.setCreateTime(new Date());
+        userMapper.insert(user);
+
+        int i = 9/0;
+
+        return 0;
     }
 
 

@@ -12,4 +12,10 @@ public interface UserService {
 
     public User findById(int id);
 
+
+    /**
+     * 测试事务
+     */
+    public int addAccount();
+
 }

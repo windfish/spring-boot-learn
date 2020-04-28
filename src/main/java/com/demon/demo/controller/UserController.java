@@ -42,4 +42,9 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @GetMapping("test_tx")
+    public Object testTransation(){
+        return userService.addAccount();
+    }
+
 }
